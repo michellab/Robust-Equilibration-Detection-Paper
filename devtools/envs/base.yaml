@@ -1,0 +1,21 @@
+name: red_reproduce
+
+channels:
+  - conda-forge
+
+dependencies:
+    # Base depends
+  - python>=3.10
+  - numpy
+  - matplotlib
+  - nb-clean
+  - scipy
+  - pip
+  - pymbar<4
+  - tqdm
+  - pandas
+  - seaborn
+  - ipython
+  - ipykernel
+  - typer
+  - jninja2
