@@ -1,7 +1,6 @@
 """Compute the equilibration times for all desired methods for the synthetic data."""
 
 import red
-from time import time
 import tqdm
 import typer
 import numpy as np
@@ -36,7 +35,7 @@ def main(input_file: Path, output_file: Path):
         "Uncorrelated Estimate": {"function": red.detect_equilibration_window, "kwargs": {"window_size_fn": None, "window_size": 1}},
         "Window Size 5": {"function": red.detect_equilibration_window, "kwargs": {"window_size_fn": None, "window_size": 5}},
         "Window Size 50": {"function": red.detect_equilibration_window, "kwargs": {"window_size_fn": None, "window_size": 50}},
-        "Window Size $\sqrt(n)$": {"function": red.detect_equilibration_window, "kwargs": {"window_size": None}}, # Use default n**0.5 size - avoid issues with pickling for pool
+        "Window Size $\\sqrt{N_{n_0}}$": {"function": red.detect_equilibration_window, "kwargs": {"window_size": None}}, # Use default n**0.5 size - avoid issues with pickling for pool
         "Initial Sequence: Chodera" : {"function": red.detect_equilibration_init_seq, "kwargs": {"sequence_estimator": "positive", "min_max_lag_time":3, "smooth_lag_times": False}},
         "Initial Sequence: Positive": {"function": red.detect_equilibration_init_seq, "kwargs": {"sequence_estimator": "initial_positive", "min_max_lag_time":3, "smooth_lag_times": False}},
         "Initial Sequence: Monotone": {"function": red.detect_equilibration_init_seq, "kwargs": {"sequence_estimator": "initial_monotone", "min_max_lag_time":3, "smooth_lag_times": False}},
@@ -55,23 +54,19 @@ def main(input_file: Path, output_file: Path):
                 if method in synthetic_data[dataset_name][system_name][0]:
                     continue
                 # Speed things up with multiprocessing to process data in parallel
-                with mp.Pool(40) as pool:
+                with mp.Pool(mp.cpu_count()) as pool:
                     timeseries = [data["data"] for data in synthetic_data[dataset_name][system_name].values()] 
                     fn = methods[method]["function"]
                     kwargs = [methods[method]["kwargs"] for _ in range(len(synthetic_data[dataset_name][system_name].values()))]
-                    start = time()
                     results = starmap_with_kwargs(pool, fn, timeseries, kwargs)
-                    end = time()
                 for i, result in enumerate(results):
                     idx, g, ess = result
                     # Get the mean using this index
                     mean = synthetic_data[dataset_name][system_name][i]["data"][idx:].mean()
                     # Fraction of data discarded
                     frac_discarded = idx / len(synthetic_data[dataset_name][system_name][i]["data"])
-                    # Get the time per timeseries
-                    run_time = (end - start) / len(synthetic_data[dataset_name][system_name].values())
                     # Store everything
-                    synthetic_data[dataset_name][system_name][i][method] = {"idx": idx, "g": g, "ess": ess, "mean": mean, "frac_discarded": frac_discarded, "time": run_time}
+                    synthetic_data[dataset_name][system_name][i][method] = {"idx": idx, "g": g, "ess": ess, "mean": mean, "frac_discarded": frac_discarded}
 
                 # Keep saving the data to a pickle file
                 with open(output_file, "wb") as f:

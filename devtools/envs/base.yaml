@@ -19,3 +19,7 @@ dependencies:
   - ipykernel
   - typer
   - jninja2
+
+    # Jupyter
+  - jupyter
+  - nbconvert
