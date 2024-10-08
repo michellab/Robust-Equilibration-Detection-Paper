@@ -1,4 +1,5 @@
 # Robust-Equilibration-Detection-Paper
+[![CI](https://github.com/michellab/Robust-Equilibration-Detection-Paper/actions/workflows/ci.yaml/badge.svg)](https://github.com/michellab/Robust-Equilibration-Detection-Paper/actions/workflows/ci.yaml)
 
 **To reproduce the paper**:
 ```
