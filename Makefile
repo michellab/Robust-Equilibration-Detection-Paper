@@ -19,7 +19,7 @@ download_data:
 	# For the moment, just copy from outside the repo
 	wget https://zenodo.org/records/13902735/files/robust-equilibration-detection-paper-data.tar.gz
 	tar -xzf robust-equilibration-detection-paper-data.tar.gz
-	rsync -a ../robust-equilibration-detection-paper-data/ .
+	rsync -a --exclude 'LICENSE' robust-equilibration-detection-paper-data/ .
 	# Clean up
 	rm -rf robust-equilibration-detection-paper-data.tar.gz robust-equilibration-detection-paper-data
 
