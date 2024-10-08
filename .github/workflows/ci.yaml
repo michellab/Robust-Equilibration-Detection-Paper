@@ -1,0 +1,35 @@
+name: CI
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '0 0 1 * *'  # Runs at midnight on the first day of every month
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    container: condaforge/mambaforge:latest
+
+    steps:
+    - uses: actions/checkout@v3.3.0
+
+    - name: Setup Conda Environment
+      run: |
+        apt update && apt install -y git make
+        make env
+
+    - name: Download Data
+      run: |
+        make download_data
+
+    - name: Test Figure Generation # Rerunning entire study is too slow
+      run: |
+        make figures_only

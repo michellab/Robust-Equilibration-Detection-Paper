@@ -35,11 +35,11 @@ To reproduce the paper, you will require `make` installed on your system. If you
 
 ```bash
 make env
-make download_data # Downloads the large files from Zenodo
+make download_data # Downloads the large files from Zenodo (https://zenodo.org/records/13902735)
 make figures_only
 ```
 
-This will pull all data from Zenodo and recreate all figures, without running computationally expensive steps. This will take a few minutes.
+This will pull all data from Zenodo (https://zenodo.org/records/13902735) and recreate all figures, without running computationally expensive steps. This will take a few minutes.
 
 If you would like to reproduce the entire paper, including generation of the synthetic data and computation of equilibration times, run:
 

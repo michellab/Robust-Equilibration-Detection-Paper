@@ -6,11 +6,8 @@ channels:
 dependencies:
     # Base depends
   - python>=3.10
-  - numpy
+  - red-molsim==0.1.1
   - matplotlib
-  - nb-clean
-  - scipy
-  - pip
   - pymbar<4
   - tqdm
   - pandas
@@ -18,8 +15,6 @@ dependencies:
   - ipython
   - ipykernel
   - typer
-  - jninja2
-
-    # Jupyter
   - jupyter
   - nbconvert
+  - nb-clean

@@ -27,8 +27,6 @@ def main(input_file: Path, output_file: Path):
     # Load the synthetic data
     with open(input_file, "rb") as f:
         synthetic_data = pkl.load(f)
-    # with open("../synthetic_data_creation/output/synthetic_data_bound_vanish.pkl", "rb") as f:
-    #     synthetic_data = pkl.load(f)
 
     # Define the methods to use, with what arguments (as implemented in red)
     methods= {
