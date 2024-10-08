@@ -23,7 +23,7 @@ jobs:
 
     - name: Setup Conda Environment
       run: |
-        apt update && apt install -y git make
+        apt update && apt install -y git make rsync
         make env
 
     - name: Download Data
