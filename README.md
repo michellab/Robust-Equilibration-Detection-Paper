@@ -8,7 +8,7 @@ cd Robust-Equilibration-Detection-Paper
 make all
 ```
 
-Inputs and code to reproduce the results and analysis from "Robust Equilibration Detection for Molecular Simulations". Analysis is performed using the [RED](https://github.com/fjclark/red) package.
+Inputs and code to reproduce the results and analysis from ["Robust Equilibration Detection for Molecular Simulations"](https://doi.org/10.26434/chemrxiv-2024-ltphc). Analysis is performed using the [RED](https://github.com/fjclark/red) Python package and [all data is available on Zenodo](https://zenodo.org/records/13902735).
 
 ```
 ├── analysis
